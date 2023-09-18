@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import { IoMdRadioButtonOff } from 'react-icons/io'
 import { AiOutlineClose } from 'react-icons/ai'
+import PlayerRegistration from './PlayerRegistration';
 
 const Board = () => {
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [isXNext, setIsXNext] = useState(true);
     const [winner, setWinner] = useState(null);
+    const [players, setPlayers] = useState({
+        X: null,
+        O: null
+    });
+    const [gameStarted, setGameStarted] = useState(false);
+
+    const handlePlayersRegistration = (playerX, playerO) => {
+        setPlayers({
+            X: playerX,
+            O: playerO
+        });
+        setGameStarted(true);
+    };
 
     const checkWinner = (squares) => {
         const lines = [
@@ -32,7 +46,7 @@ const Board = () => {
     };
 
     const handleSquareClick = index => {
-        if (squares[index] || winner) return;
+        if (!gameStarted || squares[index] || winner) return;
 
         const newSquares = squares.slice();
         newSquares[index] = isXNext ? 'X' : 'O';
@@ -40,13 +54,16 @@ const Board = () => {
 
         const winningPlayer = checkWinner(newSquares);
         if (winningPlayer) {
-            setWinner(winningPlayer);
+            setWinner(players[winningPlayer]);
+            return;
         }
 
         setIsXNext(!isXNext);
     };
 
     const isTie = checkTie();
+
+    const isCurrentPlayerDisplayVisible = gameStarted && !winner && isTie === false;
 
     const squareStyles = [
         "border-slate-500/40 border-b-4 border-r-4",
@@ -62,22 +79,32 @@ const Board = () => {
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-purple-300">
-            <div className="grid grid-rows-3 grid-flow-col gap-0 mb-4">
-                {squares.map((square, index) => (
-                    <div
-                        key={index}
-                        className={`square w-24 h-24 flex justify-center items-center bg-purple-300 transition-opacity duration-500 ${squareStyles[index]}`}
-                        onClick={() => handleSquareClick(index)}
-                    >
-                        {square === 'X' && <AiOutlineClose size={38} className='text-slate-700' />}
-                        {square === 'O' && <IoMdRadioButtonOff size={36} className='text-slate-700' />}
+            {!gameStarted ? (
+                <PlayerRegistration onPlayersRegistered={handlePlayersRegistration} />
+            ) : (
+                <>
+                    <div className="text-2xl font-bold h-10 mb-4">
+                        {isCurrentPlayerDisplayVisible ? `${isXNext ? players.X : players.O}'s turn` : ''}
                     </div>
-                ))}
-            </div>
 
-            <div className="text-2xl font-bold h-10">
-                {winner ? `${winner} wins!` : isTie ? 'It\'s a tie!' : ''}
-            </div>
+                    <div className="grid grid-rows-3 grid-flow-col gap-0 mb-4">
+                        {squares.map((square, index) => (
+                            <div
+                                key={index}
+                                className={`square w-24 h-24 flex justify-center items-center bg-purple-300 transition-opacity duration-500 ${squareStyles[index]}`}
+                                onClick={() => handleSquareClick(index)}
+                            >
+                                {square === 'X' && <AiOutlineClose size={38} className='text-slate-700' />}
+                                {square === 'O' && <IoMdRadioButtonOff size={36} className='text-slate-700' />}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="text-2xl font-bold h-10">
+                        {winner ? `${winner} wins!` : isTie ? 'It\'s a tie!' : ''}
+                    </div>
+                </>
+            )}
         </div>
     );
 }
