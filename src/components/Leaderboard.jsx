@@ -3,6 +3,9 @@ import { AiOutlineCheckCircle } from 'react-icons/ai'
 
 
 const Leaderboard = ({ isActive, toggleLeaderboard }) => {
+
+    const playerScores = JSON.parse(localStorage.getItem('ticTacToeScores')) || [];
+
     return (
         <>
             <div className={isActive ? 'fixed left-0 top-0 w-full h-screen bg-black/90 z-[60]' : ''} />
@@ -22,13 +25,13 @@ const Leaderboard = ({ isActive, toggleLeaderboard }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {['William', 'Billy', 'Liam', 'Kristina', 'Kristy'].map(name => (
-                            <tr key={name} className='text-center'>
-                                <td className='border border-black p-2'>{name}</td>
-                                <td className='border border-black p-2'>0</td>
-                                <td className='border border-black p-2'>0</td>
-                                <td className='border border-black p-2'>0</td>
-                                <td className='border border-black p-2'>0</td>
+                        {playerScores.map(p => (
+                            <tr key={p.name} className='text-center'>
+                                <td className='border border-black p-2'>{p.name}</td>
+                                <td className='border border-black p-2'>{p.wins}</td>
+                                <td className='border border-black p-2'>{p.losses}</td>
+                                <td className='border border-black p-2'>{p.ties}</td>
+                                <td className='border border-black p-2'>{p.score}</td>
                             </tr>
                         ))}
                     </tbody>
