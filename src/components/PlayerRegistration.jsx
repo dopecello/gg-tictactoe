@@ -14,12 +14,12 @@ const PlayerRegistration = ({ onPlayersRegistered }) => {
     return (
         <div>
             <input
-                placeholder="Player X's name"
+                placeholder="Player 1"
                 value={playerX}
                 onChange={e => setPlayerX(e.target.value)}
             />
             <input
-                placeholder="Player O's name"
+                placeholder="Player 2"
                 value={playerO}
                 onChange={e => setPlayerO(e.target.value)}
             />
