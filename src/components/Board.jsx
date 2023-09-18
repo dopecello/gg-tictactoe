@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { IoMdRadioButtonOff } from 'react-icons/io'
+import { AiOutlineClose } from 'react-icons/ai'
 
 const Board = () => {
     const [squares, setSquares] = useState(Array(9).fill(null));
@@ -62,16 +64,17 @@ const Board = () => {
         <div className="flex flex-col justify-center items-center min-h-screen bg-purple-300">
             <div className="grid grid-rows-3 grid-flow-col gap-0 mb-4">
                 {squares.map((square, index) => (
-                    <div 
+                    <div
                         key={index}
                         className={`square w-24 h-24 flex justify-center items-center bg-purple-300 transition-opacity duration-500 ${squareStyles[index]}`}
                         onClick={() => handleSquareClick(index)}
                     >
-                        {square}
+                        {square === 'X' && <AiOutlineClose size={38} className='text-slate-700' />}
+                        {square === 'O' && <IoMdRadioButtonOff size={36} className='text-slate-700' />}
                     </div>
                 ))}
             </div>
-            
+
             <div className="text-2xl font-bold h-10">
                 {winner ? `${winner} wins!` : isTie ? 'It\'s a tie!' : ''}
             </div>
