@@ -14,7 +14,6 @@ const PlayerRegistration = ({ onPlayersRegistered }) => {
 
     const handleStartGame = () => {
         if (playerO.trim()) {
-            console.log(playerX, playerO);
             onPlayersRegistered(playerX, playerO);
         }
     }

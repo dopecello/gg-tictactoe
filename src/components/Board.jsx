@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { IoMdRadioButtonOff } from 'react-icons/io'
+import { IoMdRadioButtonOff, IoMdReturnLeft } from 'react-icons/io'
 import { AiOutlineClose } from 'react-icons/ai'
+import { PiPlusBold } from 'react-icons/pi'
 import PlayerRegistration from './PlayerRegistration';
 import Header from './Header';
+import { updatePlayerScore } from '../util/updatePlayerScore';
 
 const Board = () => {
     const [squares, setSquares] = useState(Array(9).fill(null));
@@ -59,9 +61,15 @@ const Board = () => {
                 player: players[winningData.winner],
                 line: winningData.winningLine
             });
+            updatePlayerScore(players[winningData.winner], 'win');
+            const loser = winningData.winner === 'X' ? 'O' : 'X';
+            updatePlayerScore(players[loser], 'loss');
             return;
         }
-
+        if (checkTie()) {
+            updatePlayerScore(players['X'], 'tie');
+            updatePlayerScore(players['O'], 'tie');
+        }
         setIsXNext(!isXNext);
     };
 
@@ -84,12 +92,12 @@ const Board = () => {
     return (
         <>
             <div className="flex flex-col justify-center items-center min-h-screen bg-purple-300">
-            <Header />
+                <Header />
                 {!gameStarted ? (
                     <PlayerRegistration onPlayersRegistered={handlePlayersRegistration} />
                 ) : (
                     <>
-                        <div className="text-2xl font-bold h-10 mb-4">
+                        <div className="text-2xl font-medium text-white h-10 mb-20">
                             {isCurrentPlayerDisplayVisible ? `${isXNext ? players.X : players.O}'s turn` : ''}
                         </div>
 
@@ -107,9 +115,21 @@ const Board = () => {
                             ))}
                         </div>
 
-                        <div className="text-2xl font-bold h-10">
+                        <div className="text-2xl text-yellow-100 font-bold h-10 mt-5">
                             {winner.player ? `${winner.player} wins!` : isTie ? 'It\'s a tie!' : ''}
                         </div>
+                        {
+                            <div className='flex flex-row w-full justify-around uppercase pt-10 h-20'>
+                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'>
+                                    <IoMdReturnLeft size={33} />
+                                    Play again
+                                </span>
+                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'>
+                                    <PiPlusBold size={30} />
+                                    New players
+                                </span>
+                            </div>
+                        }
                     </>
                 )}
             </div>
