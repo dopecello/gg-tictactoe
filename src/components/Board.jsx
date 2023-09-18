@@ -66,7 +66,7 @@ const Board = () => {
 
     const isTie = checkTie();
 
-    const isCurrentPlayerDisplayVisible = gameStarted && !winner && isTie === false;
+    const isCurrentPlayerDisplayVisible = gameStarted && !winner.player && !isTie;
 
     const squareStyles = [
         "border-slate-700 border-b-4 border-r-4",
