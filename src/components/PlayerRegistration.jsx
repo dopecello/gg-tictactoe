@@ -4,26 +4,60 @@ const PlayerRegistration = ({ onPlayersRegistered }) => {
 
     const [playerX, setPlayerX] = useState("");
     const [playerO, setPlayerO] = useState("");
+    const [isPlayerXRegistered, setPlayerXRegistered] = useState(false);
 
-    const handleSubmit = () => {
-        if (playerX.trim() && playerO.trim()) {
-            onPlayersRegistered(playerX, playerO);
+    const handlePlayerX = () => {
+        if (playerX.trim()) {
+            setPlayerXRegistered(true);
         }
     };
 
+    const handleStartGame = () => {
+        if (playerO.trim()) {
+            console.log(playerX, playerO);
+            onPlayersRegistered(playerX, playerO);
+        }
+    }
+
+    const isPlayerXValid = playerX.length > 0 && playerX.length <= 30;
+
     return (
         <div>
-            <input
-                placeholder="Player 1"
-                value={playerX}
-                onChange={e => setPlayerX(e.target.value)}
-            />
-            <input
-                placeholder="Player 2"
-                value={playerO}
-                onChange={e => setPlayerO(e.target.value)}
-            />
-            <button onClick={handleSubmit}>Start Game</button>
+            <div className={isPlayerXRegistered ? 'hidden' : ''}>
+                <h2 className='text-center font-bold text-2xl pb-10'>Player 1</h2>
+                <input
+                    type='text'
+                    value={playerX}
+                    onChange={e => setPlayerX(e.target.value)}
+                    maxLength={30}
+                    className='text-center border-b-2 border-black bg-purple-300 focus:outline-none w-[20rem]'
+                />
+                <div
+                    className={`flex justify-center mx-auto mt-10 text-center p-3 border-2 border-black w-24 
+                                ${isPlayerXValid ? 'hover:bg-purple-800 hover:text-white transition-colors cursor-pointer' : 'cursor-not-allowed'}`}
+                    onClick={isPlayerXValid ? handlePlayerX : null}
+                >
+                    Submit
+                </div>
+            </div>
+            <div className={isPlayerXRegistered ? '' : 'hidden'}>
+                <h2 className='text-center font-bold text-2xl pb-10'>Player 2</h2>
+                <input
+                    type='text'
+                    value={playerO}
+                    onChange={e => setPlayerO(e.target.value)}
+                    maxLength={30}
+                    className='text-center border-b-2 border-black bg-purple-300 focus:outline-none w-[20rem]'
+
+                />
+                <div
+                    className={`flex justify-center mx-auto mt-10 text-center p-3 border-2 border-black w-24 
+                                ${isPlayerXValid ? 'hover:bg-purple-800 hover:text-white transition-colors cursor-pointer' : 'cursor-not-allowed'}`}
+                    onClick={isPlayerXValid ? handleStartGame : null}
+                >
+                    Let's Go!
+                </div>
+            </div>
         </div>
     );
 }
