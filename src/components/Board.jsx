@@ -75,6 +75,20 @@ const Board = () => {
 
     const isTie = checkTie();
 
+    const handlePlayAgain = () => {
+        setSquares(Array(9).fill(null));
+        setIsXNext(true);
+        setWinner({ player: null, line: [] });
+    }
+
+    const handleNewPlayers = () => {
+        setGameStarted(false);
+        setSquares(Array(9).fill(null));
+        setIsXNext(true);
+        setWinner({ player: null, line: [] });
+        setPlayers({ X: null, O: null });
+    }
+
     const isCurrentPlayerDisplayVisible = gameStarted && !winner.player && !isTie;
 
     const squareStyles = [
@@ -115,16 +129,18 @@ const Board = () => {
                             ))}
                         </div>
 
-                        <div className="text-2xl text-yellow-100 font-bold h-10 mt-5">
+                        <div className="text-2xl text-white font-bold h-10 mt-5">
                             {winner.player ? `${winner.player} wins!` : isTie ? 'It\'s a tie!' : ''}
                         </div>
                         {
                             <div className='flex flex-row w-full justify-around uppercase pt-10 h-20'>
-                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'>
+                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'
+                                    onClick={handlePlayAgain}>
                                     <IoMdReturnLeft size={33} />
                                     Play again
                                 </span>
-                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'>
+                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'
+                                    onClick={handleNewPlayers}>
                                     <PiPlusBold size={30} />
                                     New players
                                 </span>
