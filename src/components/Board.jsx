@@ -124,7 +124,7 @@ const Board = () => {
                     <PlayerRegistration onPlayersRegistered={handlePlayersRegistration} />
                 ) : (
                     <>
-                        <div className="text-2xl font-medium text-white h-16">
+                        <div className="text-2xl font-medium text-white h-16 mt-12">
                             {isCurrentPlayerDisplayVisible ? `${isXNext ? players.X : players.O}'s turn` : ""}
                         </div>
 
