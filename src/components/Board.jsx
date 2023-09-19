@@ -81,14 +81,18 @@ const Board = () => {
 
     const handlePlayAgain = () => {
         setSquares(Array(9).fill(null));
-        setIsExploding(!isExploding);
+        if (winner.player) {
+            setIsExploding(!isExploding);
+        }
         randomizeStartingPlayer();
         setWinner({ player: null, line: [] });
     }
 
     const handleNewPlayers = () => {
         setGameStarted(false);
-        setIsExploding(!isExploding);
+        if (winner.player) {
+            setIsExploding(!isExploding);
+        }
         setSquares(Array(9).fill(null));
         setIsXNext(true);
         setWinner({ player: null, line: [] });
