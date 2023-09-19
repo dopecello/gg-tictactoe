@@ -14,18 +14,22 @@ const PlayerRegistration = ({ onPlayersRegistered }) => {
     };
 
     const handleStartGame = () => {
-        if (playerO.trim()) {
-            if (playerO.toLowerCase() === playerX.toLowerCase()) {
-                setErrorMessage("Players must have different names.");
-                return;
-            }
 
-            setErrorMessage("");
-            onPlayersRegistered(playerX, playerO);
+        if (playerO.trim() === "") {
+            setErrorMessage("Please enter a name for Player 2!")
+            return;
         }
+        if (playerO.toLowerCase() === playerX.toLowerCase()) {
+            setErrorMessage("Players must have different names.");
+            return;
+        }
+
+        setErrorMessage("");
+        onPlayersRegistered(playerX, playerO);
+
     };
 
-    const isPlayerXValid = playerX.length > 0 && playerX.length <= 30;
+    const isPlayerXValid = playerX.length > 0 && playerX.length <= 15;
 
     return (
         <div>
