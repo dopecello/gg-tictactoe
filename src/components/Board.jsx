@@ -21,6 +21,7 @@ const Board = () => {
             X: playerX,
             O: playerO
         });
+        randomizeStartingPlayer();
         setGameStarted(true);
     };
 
@@ -77,7 +78,7 @@ const Board = () => {
 
     const handlePlayAgain = () => {
         setSquares(Array(9).fill(null));
-        setIsXNext(true);
+        randomizeStartingPlayer();
         setWinner({ player: null, line: [] });
     }
 
@@ -88,6 +89,10 @@ const Board = () => {
         setWinner({ player: null, line: [] });
         setPlayers({ X: null, O: null });
     }
+
+    const randomizeStartingPlayer = () => {
+        setIsXNext(Math.random() < 0.5);
+    };
 
     const isCurrentPlayerDisplayVisible = gameStarted && !winner.player && !isTie;
 
