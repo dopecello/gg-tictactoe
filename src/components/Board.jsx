@@ -111,11 +111,11 @@ const Board = () => {
                     <PlayerRegistration onPlayersRegistered={handlePlayersRegistration} />
                 ) : (
                     <>
-                        <div className="text-2xl font-medium text-white h-10 mb-20">
-                            {isCurrentPlayerDisplayVisible ? `${isXNext ? players.X : players.O}'s turn` : ''}
+                        <div className="text-2xl font-medium text-white h-16">
+                            {isCurrentPlayerDisplayVisible ? `${isXNext ? players.X : players.O}'s turn` : ""}
                         </div>
 
-                        <div className="grid grid-rows-3 grid-flow-col gap-0 mb-4">
+                        <div className="grid grid-rows-3 grid-flow-col gap-0">
                             {squares.map((square, index) => (
                                 <div
                                     key={index}
@@ -129,23 +129,27 @@ const Board = () => {
                             ))}
                         </div>
 
-                        <div className="text-2xl text-white font-bold h-10 mt-5">
+                        <div className="text-2xl text-white font-bold h-20 flex flex-col justify-center">
                             {winner.player ? `${winner.player} wins!` : isTie ? 'It\'s a tie!' : ''}
                         </div>
-                        {
-                            <div className='flex flex-row w-full justify-around uppercase pt-10 h-20'>
-                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'
-                                    onClick={handlePlayAgain}>
-                                    <IoMdReturnLeft size={33} />
-                                    Play again
-                                </span>
-                                <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'
-                                    onClick={handleNewPlayers}>
-                                    <PiPlusBold size={30} />
-                                    New players
-                                </span>
-                            </div>
-                        }
+                        <div className='flex flex-row w-full justify-around uppercase h-20'>
+                            {
+                                (winner.player || isTie) && (
+                                    <>
+                                        <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'
+                                            onClick={handlePlayAgain}>
+                                            <IoMdReturnLeft size={33} />
+                                            Play again
+                                        </span>
+                                        <span className='flex flex-row gap-3 text-xl font-medium items-center hover:text-white transition-colors duration-200 hover:cursor-pointer'
+                                            onClick={handleNewPlayers}>
+                                            <PiPlusBold size={30} />
+                                            New players
+                                        </span>
+                                    </>
+                                )
+                            }
+                        </div>
                     </>
                 )}
             </div>
