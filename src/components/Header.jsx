@@ -29,7 +29,7 @@ const Header = () => {
                 isActive={isLeaderboardActive}
                 toggleLeaderboard={handleLeaderboard}
             />
-            <div className='fixed top-0 left-0 w-full flex flex-row justify-between bg-purple-300 text-center p-4 z-50'>
+            <div className='fixed top-0 left-0 w-full flex flex-row justify-between lg:justify-evenly bg-purple-300 text-center p-4 z-50'>
                 <BsInfoCircle size={33} className='cursor-pointer hover:text-white' onClick={handleHelpMenu} />
                 <LuTrophy size={32} className='cursor-pointer hover:text-white' onClick={handleLeaderboard} />
             </div>

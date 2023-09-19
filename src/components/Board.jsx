@@ -132,7 +132,7 @@ const Board = () => {
                         <div className="text-2xl text-white font-bold h-20 flex flex-col justify-center">
                             {winner.player ? `${winner.player} wins!` : isTie ? 'It\'s a tie!' : ''}
                         </div>
-                        <div className='flex flex-row w-full justify-around uppercase h-20'>
+                        <div className='w-full flex flex-col items-center gap-5 sm:flex-row sm:justify-around sm:gap-0 uppercase h-20'>
                             {
                                 (winner.player || isTie) && (
                                     <>

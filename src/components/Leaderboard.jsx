@@ -13,10 +13,10 @@ const Leaderboard = ({ isActive, toggleLeaderboard }) => {
         <>
             <div className={isActive ? 'fixed left-0 top-0 w-full h-screen bg-black/90 z-[60]' : ''} />
             <div className={isActive
-                ? 'fixed h-[80%] w-[95%] md:w-1/2 lg:w-1/3 xl:w-1/2 bg-purple-300 rounded-md p-[1.5rem] ease-in duration-300 z-[61] flex flex-col items-center justify-center'
+                ? 'fixed h-[80%] sm:h-[82%] w-[95%] sm:w-[80%] md:w-1/2 lg:w-[60%] xl:w-[40%] bg-purple-300 rounded-md p-6 z-[61] flex flex-col items-center justify-center'
                 : 'hidden'}>
                 <h2 className='flex justify-center font-bold text-4xl p-2 mb-10 border-b border-black self-stretch'>Leaderboard</h2>
-                <div className='overflow-y-auto mb-2 flex-grow'>
+                <div className='flex flex-col flex-grow relative overflow-y-auto'>
                     <table className='w-full mb-10 shadow-lg'>
                         <thead>
                             <tr className='text-xs'>
@@ -39,9 +39,9 @@ const Leaderboard = ({ isActive, toggleLeaderboard }) => {
                             ))}
                         </tbody>
                     </table>
-                </div>
-                <div onClick={() => toggleLeaderboard()} className='cursor-pointer absolute right-0 bottom-0 p-1'>
-                    <AiOutlineCheckCircle size={40} className='hover:text-white rounded-full transition-colors duration-200' />
+                    <div onClick={() => toggleLeaderboard()} className='cursor-pointer self-center'>
+                        <AiOutlineCheckCircle size={40} className='hover:text-white rounded-full transition-colors duration-200' />
+                    </div>
                 </div>
             </div>
         </>
