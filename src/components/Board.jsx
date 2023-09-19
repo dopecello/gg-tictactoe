@@ -5,6 +5,7 @@ import { PiPlusBold } from 'react-icons/pi'
 import PlayerRegistration from './PlayerRegistration';
 import Header from './Header';
 import { updatePlayerScore } from '../util/updatePlayerScore';
+import ConfettiExplosion from 'react-confetti-explosion';
 
 const Board = () => {
     const [squares, setSquares] = useState(Array(9).fill(null));
@@ -24,6 +25,7 @@ const Board = () => {
         randomizeStartingPlayer();
         setGameStarted(true);
     };
+    const [isExploding, setIsExploding] = useState(false);
 
     const checkWinner = (squares) => {
         const lines = [
@@ -39,6 +41,7 @@ const Board = () => {
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                setIsExploding(!isExploding);
                 return { winner: squares[a], winningLine: [a, b, c] };
             }
         }
@@ -78,12 +81,14 @@ const Board = () => {
 
     const handlePlayAgain = () => {
         setSquares(Array(9).fill(null));
+        setIsExploding(!isExploding);
         randomizeStartingPlayer();
         setWinner({ player: null, line: [] });
     }
 
     const handleNewPlayers = () => {
         setGameStarted(false);
+        setIsExploding(!isExploding);
         setSquares(Array(9).fill(null));
         setIsXNext(true);
         setWinner({ player: null, line: [] });
@@ -110,6 +115,9 @@ const Board = () => {
 
     return (
         <>
+            <div className='flex flex-row justify-center'>
+                {isExploding && <ConfettiExplosion width={3600} />}
+            </div>
             <div className="flex flex-col justify-center items-center min-h-screen bg-purple-300">
                 <Header />
                 {!gameStarted ? (
