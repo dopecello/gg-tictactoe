@@ -14,4 +14,4 @@ That is it! You are now able to make edits to the game with hot-reloading and ca
 
 ## Notes
 
-If you are new to tailwind or don't want to constantly refer to the docs and if you are using VSCode, I recommend installing the [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) extension. It is a very worlkflow-friendly tool that will assist in your styling with Tailwind.
+If you are new to tailwind or don't want to constantly refer to the docs and if you are using VSCode, I recommend installing the [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) extension. It is a very workflow-friendly tool that will assist in your styling with Tailwind.
